@@ -43,7 +43,7 @@ jobs:
       # Upload Playwright artifacts (even if tests fail)
       - name: Upload Playwright artifacts
         if: always() # Always upload artifacts, even if tests fail
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: playwright-artifacts
           path: |
