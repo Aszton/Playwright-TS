@@ -1,12 +1,17 @@
-import { Page, expect } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test";
 
 export class TshirtsPage {
-  constructor(protected page: Page) {}
-  fruitOfTheLoom = this.page.getByRole("link", {
-    name: "Fruit of the Loom T-Shirts 5",
-  });
-  size = this.page.locator("#option348");
-  quantity = this.page.locator("#product_quantity");
+  fruitOfTheLoom: Locator;
+  size: Locator;
+  quantity: Locator;
+
+  constructor(protected page: Page) {
+    this.fruitOfTheLoom = this.page.getByRole("link", {
+      name: "Fruit of the Loom T-Shirts 5",
+    });
+    this.size = this.page.locator("#option348");
+    this.quantity = this.page.locator("#product_quantity");
+  }
 
   async clickFruitOfTheLoom(): Promise<void> {
     await expect(this.fruitOfTheLoom).toBeVisible();

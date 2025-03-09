@@ -1,12 +1,21 @@
-import { Page, expect } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test";
 
 export class OrderPage {
-  constructor(protected page: Page) {}
-  addToCart = this.page.getByRole("link", { name: " Add to Cart" });
-  quantityInSummary = this.page.locator('[id*="cart_quantity"]');
-  checkoutButton = this.page.locator("#cart_checkout1");
-  confirmOrder = this.page.getByRole("button", { name: " Confirm Order" });
-  successMessage = this.page.getByText("Your Order Has Been Processed!");
+  addToCart: Locator;
+  quantityInSummary: Locator;
+  checkoutButton: Locator;
+  confirmOrder: Locator;
+  successMessage: Locator;
+
+  constructor(protected page: Page) {
+    this.addToCart = this.page.getByRole("link", { name: " Add to Cart" });
+    this.quantityInSummary = this.page.locator('[id*="cart_quantity"]');
+    this.checkoutButton = this.page.locator("#cart_checkout1");
+    this.confirmOrder = this.page.getByRole("button", {
+      name: " Confirm Order",
+    });
+    this.successMessage = this.page.getByText("Your Order Has Been Processed!");
+  }
 
   async clickAddToCartButton(): Promise<void> {
     await expect(this.addToCart).toBeVisible();

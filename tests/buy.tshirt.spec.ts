@@ -1,6 +1,6 @@
 import { test } from "../fixtures/base";
 
-test("Buy tshirt", async ({ mainPage, tshirtsPage, orderPage, page }) => {
+test("Buy tshirt", async ({ mainPage, tshirtsPage, orderPage }) => {
   await test.step("Open tshirts tab", async () => {
     await mainPage.openMainPage();
     await mainPage.hoverOnApparelAndAccessories();

@@ -1,13 +1,18 @@
-import { Page, expect } from "@playwright/test";
+import { Page, expect, Locator } from "@playwright/test";
 
 export class MainPage {
-  constructor(protected page: Page) {}
+  loginOrRegisterButton: Locator
+  apparelAndAccessories: Locator
+  tshirtsTab: Locator
+  
+  constructor(protected page: Page) {
 
-  loginOrRegisterButton = this.page.locator("#customer_menu_top");
-  apparelAndAccessories = this.page.getByRole("link", {
+  this.loginOrRegisterButton = this.page.locator("#customer_menu_top");
+  this.apparelAndAccessories = this.page.getByRole("link", {
     name: "Apparel & accessories",
   });
-  tshirtsTab = this.page.getByRole("link", { name: "T-shirts" });
+  this.tshirtsTab = this.page.getByRole("link", { name: "T-shirts" });
+  }
 
   async openMainPage(): Promise<void> {
     await this.page.goto("https://automationteststore.com/");
