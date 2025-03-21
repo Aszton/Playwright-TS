@@ -43,27 +43,13 @@ jobs:
         with:
           name: playwright-api-artifacts
           path: playwright-report/
+      - name: create index.html redirect
+        run: echo '<meta http-equiv="refresh" content="0; url=playwright-report/index.html">' > index.html
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: . #publish the root of the repository.
+          publish_dir: .
           publish_branch: gh-pages
-      - name: create index.html redirect
-        run: |
-          echo '<meta http-equiv="refresh" content="0; url=playwright-report/index.html">' > index.html
-      - name: push redirect to gh-pages branch.
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          path: gh-pages
-      - name: copy redirect
-        run: cp index.html gh-pages/
-      - name: commit and push redirect.
-        run: |
-          cd gh-pages
-          git config --local user.email "action@github.com"
-          git config --local user.name "github action"
-          git add index.html
-          git commit -m "add index.html redirect."
-          git push
+      - name: Delay
+        run: sleep 10 # Add a 10-second delay
