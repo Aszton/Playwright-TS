@@ -1,7 +1,7 @@
 name: Playwright Tests
 
 env:
-  USERNAME: ${{ secrets.USERNAME }}
+  USER: ${{ secrets.USERNAME }}
   PASSWORD: ${{ secrets.PASSWORD }}
 
 on:
@@ -17,35 +17,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up Node.js with caching to speed up installs
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "22"
-          cache: 'npm'  # Cache npm dependencies to speed up installs
+          cache: 'npm'
 
-      # Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Install Playwright browsers (including all supported ones)
-      - name: Install Playwright browsers
-        run: npx playwright install chromium
+      - name: Install chromium
+        run: npx playwright install chromium --with-deps
 
-      # Run Playwright tests
       - name: Run Playwright tests
-        run: npm test
+        run: npx playwright test
 
-      # Upload Playwright artifacts (even if tests fail)
       - name: Upload Playwright artifacts
-        if: always() # Always upload artifacts, even if tests fail
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-artifacts
+          name: playwright-api-artifacts
           path: |
             test-results/
             playwright-report/
