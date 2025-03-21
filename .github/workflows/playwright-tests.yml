@@ -35,3 +35,23 @@ jobs:
         path: |
           test-results/
           playwright-report/
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Download Playwright report
+      uses: actions/download-artifact@v4
+      with:
+        name: playwright-api-artifacts
+        path: playwright-report/
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: playwright-report/
