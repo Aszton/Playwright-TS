@@ -14,38 +14,56 @@ jobs:
       matrix:
         node-version: [22.x]
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npx playwright install chromium --with-deps
-    - run: npx playwright test
-    - name: Upload Playwright artifacts
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: playwright-api-artifacts
-        path: |
-          test-results/
-          playwright-report/
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npx playwright install chromium --with-deps
+      - run: npx playwright test
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-api-artifacts
+          path: |
+            test-results/
+            playwright-report/
   deploy:
     needs: build
     if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Download Playwright report
-      uses: actions/download-artifact@v4
-      with:
-        name: playwright-api-artifacts
-        path: playwright-report/
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: playwright-report/
-        publish_branch: gh-pages
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Download Playwright report
+        uses: actions/download-artifact@v4
+        with:
+          name: playwright-api-artifacts
+          path: playwright-report/
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: . #publish the root of the repository.
+          publish_branch: gh-pages
+      - name: create index.html redirect
+        run: |
+          echo '<meta http-equiv="refresh" content="0; url=playwright-report/index.html">' > index.html
+      - name: push redirect to gh-pages branch.
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+      - name: copy redirect
+        run: cp index.html gh-pages/
+      - name: commit and push redirect.
+        run: |
+          cd gh-pages
+          git config --local user.email "action@github.com"
+          git config --local user.name "github action"
+          git add index.html
+          git commit -m "add index.html redirect."
+          git push
