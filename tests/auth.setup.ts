@@ -7,7 +7,7 @@ setup("authenticate", async ({ page, mainPage, loginPage }) => {
   await mainPage.openMainPage();
   await mainPage.clickLoginOrRegisterButton();
   await loginPage.fillLoginInputs(
-    process.env.USERNAME as string,
+    process.env.USER as string,
     process.env.PASSWORD as string
   );
   await loginPage.clickLoginButton();
