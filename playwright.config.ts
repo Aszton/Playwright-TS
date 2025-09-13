@@ -8,6 +8,11 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
   use: {
+    video: {
+      mode: "retain-on-failure",
+      size: { width: 1920, height: 1080 },
+    },
+    screenshot: "only-on-failure",
     trace: "on-first-retry",
   },
 
@@ -15,7 +20,10 @@ export default defineConfig({
     { name: "setup", testMatch: /.*\.setup\.ts/ },
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"], storageState: ".auth/testUser.json" },
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: ".auth/testUser.json",
+      },
       dependencies: ["setup"],
     },
   ],
