@@ -1,6 +1,6 @@
 name: Playwright Tests
 env:
-  USER: ${{ secrets.USERNAME }}
+  USER: ${{ secrets.USER_NAME }}
   PASSWORD: ${{ secrets.PASSWORD }}
 
 on:
