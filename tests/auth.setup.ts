@@ -13,7 +13,7 @@ async function authenticateUser(user: string, password: string, storagePath: str
 
 setup("setup user authenticate", async ({ mainPage, loginPage, page }) => {
   await authenticateUser(
-    process.env.USER as string,
+    process.env.USER_NAME as string,
     process.env.PASSWORD as string,
     path.join(__dirname, "../.auth/testUser.json"),
     { mainPage, loginPage, page }
