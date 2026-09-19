@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@playwright/mcp": "^0.0.82",
     "@playwright/test": "^1.51.1",
     "@types/node": "^22.10.2",
     "dotenv": "^16.4.7"
