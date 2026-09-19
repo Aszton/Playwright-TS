@@ -4,6 +4,9 @@ export class MainPage {
   loginOrRegisterButton: Locator
   apparelAndAccessories: Locator
   tshirtsTab: Locator
+  makeup: Locator
+  skincare: Locator
+  menTab: Locator
   
   constructor(protected page: Page) {
 
@@ -12,6 +15,9 @@ export class MainPage {
     name: "Apparel & accessories",
   });
   this.tshirtsTab = this.page.getByRole("link", { name: "T-shirts" });
+  this.makeup = this.page.getByRole("link", { name: "Makeup" });
+  this.skincare = this.page.getByRole("link", { name: "Skincare" });
+  this.menTab = this.page.getByRole("link", { name: "Men", exact: true });
   }
 
   async openMainPage(): Promise<void> {
@@ -35,5 +41,20 @@ export class MainPage {
   async clickTshirtsTab(): Promise<void> {
     await expect(this.tshirtsTab).toBeVisible();
     await this.tshirtsTab.click();
+  }
+
+  async hoverOnMakeup(): Promise<void> {
+    await expect(this.makeup).toBeVisible();
+    await this.makeup.hover({ force: true });
+  }
+
+  async hoverOnSkincare(): Promise<void> {
+    await expect(this.skincare).toBeVisible();
+    await this.skincare.hover({ force: true });
+  }
+
+  async clickMenTab(): Promise<void> {
+    await expect(this.menTab).toBeVisible();
+    await this.menTab.click();
   }
 }

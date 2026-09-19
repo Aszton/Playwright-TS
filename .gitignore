@@ -4,3 +4,6 @@ node_modules/
 /playwright/.cache/
 .env
 .auth
+.playwright-mcp/
+# Playwright CLI output (may contain credentials)
+.playwright-cli/

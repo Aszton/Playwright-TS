@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "playwright": {
+      "command": "node",
+      "args": ["${workspaceFolder}/node_modules/@playwright/mcp/cli.js"]
+    }
+  }
+}

@@ -15,10 +15,9 @@ test("Buy tshirt", async ({ mainPage, tshirtsPage, orderPage, page }) => {
   });
 
   await test.step("Confirm order", async () => {
-    // await orderPage.clickAddToCartButton();
-    // await orderPage.verifyQty("5");
-    // await orderPage.clickCheckoutButton();
-    // await orderPage.clickConfirmOrderButton();
-    // await orderPage.verifySuccessOrderMessage();
+    await orderPage.clickAddToCartButton();
+    await orderPage.clickCheckoutButton();
+    await orderPage.clickConfirmOrderButton();
+    await orderPage.verifySuccessOrderMessage();
   });
 });

@@ -6,7 +6,7 @@ async function authenticateUser(
   user: string,
   password: string,
   storagePath: string,
-  { mainPage, loginPage, page }
+  { mainPage, loginPage, page },
 ) {
   await mainPage.openMainPage();
   await mainPage.clickLoginOrRegisterButton();
@@ -21,6 +21,6 @@ setup("setup user authenticate", async ({ mainPage, loginPage, page }) => {
     process.env.USER_NAME as string,
     process.env.PASSWORD as string,
     path.join(__dirname, "../.auth/testUser.json"),
-    { mainPage, loginPage, page }
+    { mainPage, loginPage, page },
   );
 });
