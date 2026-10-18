@@ -14,6 +14,21 @@ Playwright + TypeScript (strict, ES2022) UI test suite for an e-commerce demo si
 - Never instantiate a page object with `new XPage(page)` inside a test — always consume it from the fixture (`async ({ mainPage, loginPage }) => {...}`).
 - Assertions live in page object methods, not in test bodies — tests call `verify*` methods instead of calling `expect` directly.
 - Run tests with `npm test`.
+- Never use `waitForTimeout`, XPath, `test.only`, or hardcoded credentials; use web-first assertions.
+- Every new page object must be registered in `fixtures/base.ts`.
+- Before finishing, run `npm run typecheck` and the affected spec.
+
+## Commands
+- `npm test` all tests; `npx playwright test tests/x.spec.ts --headed` one spec
+- `npm run test:ui`, `npm run report`, `npm run typecheck`
+- `.env.example` lists required variables (`USER_NAME`, `PASSWORD`)
+
+## AI customization index
+- Instructions: `.github/instructions/` (page-objects, tests, fixtures, setup-and-env, locators-and-waits)
+- Skills: `playwright-test-authoring`, `playwright-explore-and-locate`, `playwright-debug-flaky-test`, `playwright-test-review`, `playwright-cli`
+- Agents: Playwright Test Writer / Planner / Healer / Reviewer (`.github/agents/`)
+- Prompts: `/new-test`, `/new-page-object`, `/fix-failing-test`, `/review-tests`
+- Playwright MCP server configured in `.vscode/mcp.json`; cross-tool summary in `AGENTS.md`.
 
 For detailed authoring rules, see:
 - [.github/instructions/page-objects.instructions.md](.github/instructions/page-objects.instructions.md) for page object conventions.
