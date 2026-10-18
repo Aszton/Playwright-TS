@@ -9,7 +9,7 @@ git clone https://github.com/Aszton/Playwright-TS
 ```ruby
 npm install
 ```
-4. Add .env file with the correct secret environment variables (ask me for them)
+4. Copy `.env.example` to `.env` and fill in the secret environment variables (ask me for them)
 4. Run Playwright tests by this command:
 ```ruby
 npm test

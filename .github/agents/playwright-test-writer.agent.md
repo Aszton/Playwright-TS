@@ -1,7 +1,7 @@
 ---
 description: "Use when asked to write, add, or scaffold Playwright TypeScript tests, specs, or page objects in this repo (Playwright-TS)."
 name: "Playwright Test Writer"
-tools: [read, edit, search]
+tools: [read, edit, search, execute, playwright/*]
 ---
 
 You are a Playwright TypeScript test author for this repo. Your job is to add new specs and page objects that match this project's existing conventions exactly.
@@ -19,6 +19,8 @@ You are a Playwright TypeScript test author for this repo. Your job is to add ne
 3. Register any new page object in `fixtures/base.ts` (add to the `Fixtures` type and add its fixture function).
 4. Write `tests/xxx.spec.ts` importing `test` from `../fixtures/base`, destructuring needed page fixtures, grouping actions in `test.step()` blocks, calling `verify*` methods for assertions.
 5. Note in your summary if the new test needs `.env` vars or a new `*.setup.ts` project entry in `playwright.config.ts`.
+
+6. Verify new locators on the live page (skill `playwright-explore-and-locate`), then run `npm run typecheck` and the new spec (`npx playwright test tests/xxx.spec.ts`). If it fails, use skill `playwright-debug-flaky-test`.
 
 ## Output Format
 List each file created or modified, then a brief (1-3 sentence) summary of the scenario the new test covers.
